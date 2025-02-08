@@ -12,12 +12,13 @@
         }
 
         h1 {
-            color: #333;
+            color: white;
             font-weight: bold;
+            text-shadow: 2px 2px 4px black;
         }
 
         .table-container {
-            width: 70%;
+            width: 80%;
             margin: auto;
             background: white;
             padding: 20px;
@@ -35,32 +36,33 @@
             padding: 10px;
             border: 1px solid #ddd;
             text-align: center;
+            color: white;
+            text-shadow: 1px 1px 2px black;
         }
 
         th {
-            background-color: #f0f0f0;
+            background-color: #333;
         }
 
         .logo {
-            width: 30px;
-            height: 30px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 3px;
         }
 
-        /* Team-Specific Row Colors */
+        /* Team Colors */
         .csk { background-color: #FFF700; }
-        .mi { background-color: #0066CC; color: white; }
+        .mi { background-color: #0066CC; }
         .srh { background-color: #FF6600; }
-        .gt { background-color: #000000; color: white; }
-        .rr { background-color: #FF1493; color: white; }
-        .rcb { background-color: #D50000; color: white; }
+        .gt { background-color: #000000; }
+        .rr { background-color: #FF1493; }
+        .rcb { background-color: #D50000; }
 
         /* Matches, Wins, Losses Colors */
-        .matches { background-color: ##6600cc; } /* Light Gray */
-        .wins { background-color: ##72772; color: white; } /* Green */
-        .losses { background-color: ##44336; color: white; } /* Red */
+        .matches { background-color: #d3d3d3; color: black; }
+        .wins { background-color: #4CAF50; }
+        .losses { background-color: #F44336; }
 
         td[contenteditable="true"] {
             cursor: pointer;
@@ -73,85 +75,94 @@
     </style>
 </head>
 <body>
-    <h1>POINTS TABLE</h1>
-    <input type="file" id="logoUpload" class="upload-logo" accept="image/*" onchange="uploadLogo()" />
+    <h1>Cricket Points Table</h1>
     
     <div class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>Pos</th>
+                    <th>Logo</th>
                     <th>Team</th>
                     <th>Matches</th>
                     <th>Wins</th>
                     <th>Losses</th>
                     <th>Points</th>
+                    <th>Upload Logo</th>
                 </tr>
             </thead>
             <tbody id="teamList">
-                <tr class="team csk" draggable="true">
+                <tr class="team csk">
                     <td class="position">1</td>
-                    <td><img src="csk.png" class="logo" alt="CSK"> CSK</td>
+                    <td><img src="csk.png" class="logo" id="logo-csk"></td>
+                    <td>CSK</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-csk')"></td>
                 </tr>
-                <tr class="team mi" draggable="true">
+                <tr class="team mi">
                     <td class="position">2</td>
-                    <td><img src="mi.png" class="logo" alt="MI"> MI</td>
+                    <td><img src="mi.png" class="logo" id="logo-mi"></td>
+                    <td>MI</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-mi')"></td>
                 </tr>
-                <tr class="team srh" draggable="true">
+                <tr class="team srh">
                     <td class="position">3</td>
-                    <td><img src="srh.png" class="logo" alt="SRH"> SRH</td>
+                    <td><img src="srh.png" class="logo" id="logo-srh"></td>
+                    <td>SRH</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-srh')"></td>
                 </tr>
-                <tr class="team gt" draggable="true">
+                <tr class="team gt">
                     <td class="position">4</td>
-                    <td><img src="gt.png" class="logo" alt="GT"> GT</td>
+                    <td><img src="gt.png" class="logo" id="logo-gt"></td>
+                    <td>GT</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-gt')"></td>
                 </tr>
-                <tr class="team rr" draggable="true">
+                <tr class="team rr">
                     <td class="position">5</td>
-                    <td><img src="rr.png" class="logo" alt="RR"> RR</td>
+                    <td><img src="rr.png" class="logo" id="logo-rr"></td>
+                    <td>RR</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-rr')"></td>
                 </tr>
-                <tr class="team rcb" draggable="true">
+                <tr class="team rcb">
                     <td class="position">6</td>
-                    <td><img src="rcb.png" class="logo" alt="RCB"> RCB</td>
+                    <td><img src="rcb.png" class="logo" id="logo-rcb"></td>
+                    <td>RCB</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
+                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-rcb')"></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
     <script>
-        function uploadLogo() {
-            const input = document.getElementById("logoUpload");
-            const file = input.files[0];
-
+        function uploadLogo(event, imgId) {
+            const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.querySelectorAll(".logo").forEach(img => {
-                        img.src = e.target.result;
-                    });
+                    document.getElementById(imgId).src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
@@ -163,24 +174,8 @@
 
         function updatePoints() {
             document.querySelectorAll(".team").forEach(team => {
-                const matches = parseInt(team.children[2].innerText) || 0;
-                const wins = parseInt(team.children[3].innerText) || 0;
-                const losses = parseInt(team.children[4].innerText) || 0;
-
-                let points = wins * 2;
-                team.children[5].innerText = points;
-            });
-
-            updatePositions();
-        }
-
-        function updatePositions() {
-            let teams = [...document.querySelectorAll(".team")];
-            teams.sort((a, b) => parseInt(b.children[5].innerText) - parseInt(a.children[5].innerText));
-
-            teams.forEach((team, index) => {
-                team.children[0].innerText = index + 1;
-                document.getElementById("teamList").appendChild(team);
+                const wins = parseInt(team.children[4].innerText) || 0;
+                team.children[6].innerText = wins * 2;
             });
         }
     </script>
