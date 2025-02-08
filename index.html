@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TATA IPL 2025</title>
+    <title>Cricket Points Table</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,7 +14,6 @@
         h1 {
             color: #333;
             font-weight: bold;
-            font- outline: #6600cc;
         }
 
         .table-container {
@@ -29,7 +28,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-weight: bold; /* Font zyada bold kar diya */
+            font-weight: bold;
         }
 
         th, td {
@@ -47,7 +46,7 @@
             height: 30px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 3px; /* Team ke name se 3px door */
+            margin-right: 3px;
         }
 
         /* Team-Specific Row Colors */
@@ -58,8 +57,12 @@
         .rr { background-color: #FF1493; color: white; }
         .rcb { background-color: #D50000; color: white; }
 
+        /* Matches, Wins, Losses Colors */
+        .matches { background-color: #d3d3d3; } /* Light Gray */
+        .wins { background-color: #4CAF50; color: white; } /* Green */
+        .losses { background-color: #F44336; color: white; } /* Red */
+
         td[contenteditable="true"] {
-            background: #f9f9f9;
             cursor: pointer;
         }
 
@@ -70,7 +73,7 @@
     </style>
 </head>
 <body>
-    <h1>TATA IPL 2025</h1>
+    <h1>Cricket Points Table</h1>
     <input type="file" id="logoUpload" class="upload-logo" accept="image/*" onchange="uploadLogo()" />
     
     <div class="table-container">
@@ -89,49 +92,49 @@
                 <tr class="team csk" draggable="true">
                     <td class="position">1</td>
                     <td><img src="csk.png" class="logo" alt="CSK"> CSK</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team mi" draggable="true">
                     <td class="position">2</td>
                     <td><img src="mi.png" class="logo" alt="MI"> MI</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team srh" draggable="true">
                     <td class="position">3</td>
                     <td><img src="srh.png" class="logo" alt="SRH"> SRH</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team gt" draggable="true">
                     <td class="position">4</td>
                     <td><img src="gt.png" class="logo" alt="GT"> GT</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team rr" draggable="true">
                     <td class="position">5</td>
                     <td><img src="rr.png" class="logo" alt="RR"> RR</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team rcb" draggable="true">
                     <td class="position">6</td>
                     <td><img src="rcb.png" class="logo" alt="RCB"> RCB</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
             </tbody>
@@ -154,48 +157,9 @@
             }
         }
 
-        const teamList = document.getElementById("teamList");
-
-        document.querySelectorAll(".team").forEach(team => {
-            team.addEventListener("dragstart", (e) => {
-                e.target.classList.add("dragging");
-            });
-
-            team.addEventListener("dragend", (e) => {
-                e.target.classList.remove("dragging");
-                updatePositions();
-            });
-
-            team.querySelectorAll("td[contenteditable='true']").forEach(cell => {
-                cell.addEventListener("input", updatePoints);
-            });
+        document.querySelectorAll(".team td[contenteditable='true']").forEach(cell => {
+            cell.addEventListener("input", updatePoints);
         });
-
-        teamList.addEventListener("dragover", (e) => {
-            e.preventDefault();
-            const draggingElement = document.querySelector(".dragging");
-            const afterElement = getDragAfterElement(teamList, e.clientY);
-
-            if (afterElement == null) {
-                teamList.appendChild(draggingElement);
-            } else {
-                teamList.insertBefore(draggingElement, afterElement);
-            }
-        });
-
-        function getDragAfterElement(container, y) {
-            const draggableElements = [...container.querySelectorAll(".team:not(.dragging)")];
-
-            return draggableElements.reduce((closest, child) => {
-                const box = child.getBoundingClientRect();
-                const offset = y - box.top - box.height / 2;
-                if (offset < 0 && offset > closest.offset) {
-                    return { offset: offset, element: child };
-                } else {
-                    return closest;
-                }
-            }, { offset: Number.NEGATIVE_INFINITY }).element;
-        }
 
         function updatePoints() {
             document.querySelectorAll(".team").forEach(team => {
@@ -216,7 +180,7 @@
 
             teams.forEach((team, index) => {
                 team.children[0].innerText = index + 1;
-                teamList.appendChild(team);
+                document.getElementById("teamList").appendChild(team);
             });
         }
     </script>
