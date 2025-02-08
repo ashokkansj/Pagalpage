@@ -1,154 +1,197 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TATA IPL2025</title>
-    <link rel="stylesheet" href="style.css">
-<style type="text/css" id="dcoder_stylesheet">body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
-}
+    <title>Cricket Points Table</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
 
-h1 {
-    color: #333;
-}
+        h1 {
+            color: #333;
+        }
 
-.table-container {
-    width: 60%;
-    margin: auto;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+        .table-container {
+            width: 70%;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
 
-ul {
-    list-style: none;
-    padding: 0;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-.team {
-    display: flex;
-    align-items: center;
-    background: #ddd;
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 5px;
-    cursor: grab;
-    transition: all 0.3s ease-in-out;
-}
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
 
-.team:hover {
-    background: #bbb;
-}
+        th {
+            background-color: #f0f0f0;
+        }
 
-.position {
-    font-size: 18px;
-    font-weight: bold;
-    margin-right: 10px;
-}
+        .logo {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+        }
 
-.logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-}
+        td[contenteditable="true"] {
+            background: #f9f9f9;
+            cursor: pointer;
+        }
 
-.team-name {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Dragging Effect */
-.dragging {
-    opacity: 0.5;
-    background-color: lightblue;
-}</style></head>
+        /* Dragging Effect */
+        .dragging {
+            opacity: 0.5;
+            background-color: lightblue;
+        }
+    </style>
+</head>
 <body>
     <h1>Cricket Points Table</h1>
     <div class="table-container">
-        <ul id="teamList">
-            <li class="team" draggable="true" data-rank="1">
-                <span class="position">1</span>
-                <img src="images/rcb.png" class="logo" alt="RCB">
-                <span class="team-name">RCB</span>
-            </li>
-            <li class="team" draggable="true" data-rank="2">
-                <span class="position">2</span>
-                <img src="images/csk.png" class="logo" alt="CSK">
-                <span class="team-name">CSK</span>
-            </li>
-            <li class="team" draggable="true" data-rank="3">
-                <span class="position">3</span>
-                <img src="images/srh.png" class="logo" alt="SRH">
-                <span class="team-name">SRH</span>
-            </li>
-            <li class="team" draggable="true" data-rank="4">
-                <span class="position">4</span>
-                <img src="images/mi.png" class="logo" alt="MI">
-                <span class="team-name">MI</span>
-            </li>
-            <li class="team" draggable="true" data-rank="5">
-                <span class="position">5</span>
-                <img src="images/gt.png" class="logo" alt="GT">
-                <span class="team-name">GT</span>
-            </li>
-            <li class="team" draggable="true" data-rank="6">
-                <span class="position">6</span>
-                <img src="images/rr.png" class="logo" alt="RR">
-                <span class="team-name">RR</span>
-            </li>
-        </ul>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pos</th>
+                    <th>Team</th>
+                    <th>Matches</th>
+                    <th>Wins</th>
+                    <th>Losses</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody id="teamList">
+                <tr class="team" draggable="true">
+                    <td class="position">1</td>
+                    <td><img src="rcb.png" class="logo" alt="RCB"> RCB</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team" draggable="true">
+                    <td class="position">2</td>
+                    <td><img src="csk.png" class="logo" alt="CSK"> CSK</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team" draggable="true">
+                    <td class="position">3</td>
+                    <td><img src="srh.png" class="logo" alt="SRH"> SRH</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team" draggable="true">
+                    <td class="position">4</td>
+                    <td><img src="mi.png" class="logo" alt="MI"> MI</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team" draggable="true">
+                    <td class="position">5</td>
+                    <td><img src="gt.png" class="logo" alt="GT"> GT</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team" draggable="true">
+                    <td class="position">6</td>
+                    <td><img src="rr.png" class="logo" alt="RR"> RR</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        const teamList = document.getElementById("teamList");
 
-<script type="text/javascript" id="dcoder_script">const teamList = document.getElementById("teamList");
-const teams = document.querySelectorAll(".team");
+        document.querySelectorAll(".team").forEach(team => {
+            team.addEventListener("dragstart", (e) => {
+                e.target.classList.add("dragging");
+            });
 
-teams.forEach(team => {
-    team.addEventListener("dragstart", (e) => {
-        e.target.classList.add("dragging");
-    });
+            team.addEventListener("dragend", (e) => {
+                e.target.classList.remove("dragging");
+                updatePositions();
+            });
 
-    team.addEventListener("dragend", (e) => {
-        e.target.classList.remove("dragging");
-        updatePositions();
-    });
-});
+            team.querySelectorAll("td[contenteditable='true']").forEach(cell => {
+                cell.addEventListener("input", updatePoints);
+            });
+        });
 
-teamList.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    const draggingElement = document.querySelector(".dragging");
-    const afterElement = getDragAfterElement(teamList, e.clientY);
-    
-    if (afterElement == null) {
-        teamList.appendChild(draggingElement);
-    } else {
-        teamList.insertBefore(draggingElement, afterElement);
-    }
-});
+        teamList.addEventListener("dragover", (e) => {
+            e.preventDefault();
+            const draggingElement = document.querySelector(".dragging");
+            const afterElement = getDragAfterElement(teamList, e.clientY);
 
-function getDragAfterElement(container, y) {
-    const draggableElements = [...container.querySelectorAll(".team:not(.dragging)")];
+            if (afterElement == null) {
+                teamList.appendChild(draggingElement);
+            } else {
+                teamList.insertBefore(draggingElement, afterElement);
+            }
+        });
 
-    return draggableElements.reduce((closest, child) => {
-        const box = child.getBoundingClientRect();
-        const offset = y - box.top - box.height / 2;
-        if (offset < 0 && offset > closest.offset) {
-            return { offset: offset, element: child };
-        } else {
-            return closest;
+        function getDragAfterElement(container, y) {
+            const draggableElements = [...container.querySelectorAll(".team:not(.dragging)")];
+
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offset = y - box.top - box.height / 2;
+                if (offset < 0 && offset > closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.NEGATIVE_INFINITY }).element;
         }
-    }, { offset: Number.NEGATIVE_INFINITY }).element;
-}
 
-function updatePositions() {
-    document.querySelectorAll(".team").forEach((team, index) => {
-        team.querySelector(".position").textContent = index + 1;
-    });
-}</script></body></html>
+        function updatePoints() {
+            document.querySelectorAll(".team").forEach(team => {
+                const matches = parseInt(team.children[2].innerText) || 0;
+                const wins = parseInt(team.children[3].innerText) || 0;
+                const losses = parseInt(team.children[4].innerText) || 0;
+
+                let points = wins * 2;
+                team.children[5].innerText = points;
+            });
+
+            updatePositions();
+        }
+
+        function updatePositions() {
+            let teams = [...document.querySelectorAll(".team")];
+            teams.sort((a, b) => parseInt(b.children[5].innerText) - parseInt(a.children[5].innerText));
+
+            teams.forEach((team, index) => {
+                team.children[0].innerText = index + 1;
+                teamList.appendChild(team);
+            });
+        }
+    </script>
+</body>
+                    </html>
