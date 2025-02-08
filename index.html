@@ -11,23 +11,13 @@
             background-color: #f4f4f4;
         }
 
-        /* Scrolling Title */
-        .scrolling-title {
+        h1 {
+            color: #333;
+            font-weight: bold;
             white-space: nowrap;
             overflow: hidden;
-            position: relative;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            text-shadow: 2px 2px 4px black;
-            background: black;
-            padding: 10px;
-        }
-
-        .scrolling-title span {
             display: inline-block;
-            position: absolute;
-            animation: scrollText 10s linear infinite;
+            animation: scrollText 5s linear infinite;
         }
 
         @keyframes scrollText {
@@ -36,33 +26,30 @@
         }
 
         .table-container {
-            width: 80%;
+            width: 90%;
             margin: auto;
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            font-weight: bold;
         }
 
         th, td {
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 2px solid #ddd;
             text-align: center;
-            color: white;
-            text-shadow: 1px 1px 2px black;
         }
 
         th {
-            background-color: #333;
+            background-color: #f0f0f0;
         }
 
-        .logo {
+        .team-logo {
             width: 40px;
             height: 40px;
             border-radius: 50%;
@@ -70,39 +57,28 @@
             cursor: pointer;
         }
 
-        .upload-input {
+        td[contenteditable="true"] {
+            cursor: pointer;
+            width: 50px;
+        }
+
+        .hidden-input {
             display: none;
         }
 
         /* Team Colors */
         .csk { background-color: #FFF700; }
-        .mi { background-color: #0066CC; }
+        .mi { background-color: #0066CC; color: white; }
         .srh { background-color: #FF6600; }
-        .gt { background-color: #000000; }
-        .rr { background-color: #FF1493; }
-        .rcb { background-color: #D50000; }
-
-        /* Embossed Effect */
-        tr {
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Matches, Wins, Losses Colors */
-        .matches { background-color: #d3d3d3; color: black; }
-        .wins { background-color: #4CAF50; }
-        .losses { background-color: #F44336; }
-
-        td[contenteditable="true"] {
-            cursor: pointer;
-        }
+        .gt { background-color: #000000; color: white; }
+        .rr { background-color: #FF1493; color: white; }
+        .rcb { background-color: #D50000; color: white; }
     </style>
 </head>
 <body>
 
-    <div class="scrolling-title">
-        <span>🏏 Cricket Points Table 🏏 Cricket Points Table 🏏 Cricket Points Table 🏏</span>
-    </div>
-
+    <h1>Cricket Points Table</h1>
+    
     <div class="table-container">
         <table>
             <thead>
@@ -119,19 +95,53 @@
             <tbody id="teamList">
                 <tr class="team csk">
                     <td class="position">1</td>
-                    <td><input type="file" class="upload-input" onchange="uploadLogo(event, 'logo-csk')">
-                        <img src="csk.png" class="logo" id="logo-csk"></td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="csk.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
                     <td>CSK</td>
-                    <td class="matches" contenteditable="true" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'wins-csk')">0</td>
-                    <td class="wins" contenteditable="true" id="wins-csk" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'losses-csk')">0</td>
-                    <td class="losses" contenteditable="true" id="losses-csk" oninput="validateInput(this, 2)">0</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
                 <tr class="team mi">
                     <td class="position">2</td>
-                    <td><input type="file" class="upload-input" onchange="uploadLogo(event, 'logo-mi')">
-                        <img src="mi.png" class="logo" id="logo-mi"></td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="mi.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
                     <td>MI</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team srh">
+                    <td class="position">3</td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="srh.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
+                    <td>SRH</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team gt">
+                    <td class="position">4</td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="gt.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
+                    <td>GT</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team rr">
+                    <td class="position">5</td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="rr.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
+                    <td>RR</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team rcb">
+                    <td class="position">6</td>
+                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="rcb.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
+                    <td>RCB</td>
                     <td class="matches" contenteditable="true">0</td>
                     <td class="wins" contenteditable="true">0</td>
                     <td class="losses" contenteditable="true">0</td>
@@ -142,56 +152,50 @@
     </div>
 
     <script>
-        function uploadLogo(event, imgId) {
-            const file = event.target.files[0];
+        function uploadLogo(input) {
+            const file = input.files[0];
             if (file) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById(imgId).src = e.target.result;
+                    input.nextElementSibling.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
             }
         }
 
-        function updatePoints() {
-            let teams = [...document.querySelectorAll(".team")];
+        document.querySelectorAll(".matches, .wins, .losses").forEach(cell => {
+            cell.addEventListener("input", function() {
+                let text = this.innerText.replace(/\D/g, '');
+                if (text.length > 2) text = text.slice(0, 2);
+                this.innerText = text;
 
-            teams.forEach(team => {
-                const wins = parseInt(team.children[4].innerText) || 0;
+                if (text.length === 2) {
+                    let next = this.parentElement.children[this.cellIndex + 1];
+                    if (next && next.contentEditable === "true") {
+                        next.focus();
+                    }
+                }
+                updatePoints();
+            });
+
+            cell.addEventListener("keydown", function(e) {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    let next = this.parentElement.children[this.cellIndex + 1];
+                    if (next && next.contentEditable === "true") {
+                        next.focus();
+                    }
+                }
+            });
+        });
+
+        function updatePoints() {
+            document.querySelectorAll(".team").forEach(team => {
+                let wins = parseInt(team.children[4].innerText) || 0;
                 team.children[6].innerText = wins * 2;
             });
-
-            teams.sort((a, b) => {
-                const pointsA = parseInt(a.children[6].innerText) || 0;
-                const pointsB = parseInt(b.children[6].innerText) || 0;
-                return pointsB - pointsA;
-            });
-
-            const tbody = document.getElementById("teamList");
-            tbody.innerHTML = "";
-            teams.forEach((team, index) => {
-                team.children[0].innerText = index + 1;
-                tbody.appendChild(team);
-            });
         }
-
-        function validateInput(element, maxLength) {
-            let text = element.innerText;
-            if (text.length > maxLength) {
-                element.innerText = text.slice(0, maxLength);
-            }
-        }
-
-        function moveCursor(event, currentElement, nextId) {
-            if (event.key === "Enter" || event.key === "Tab") {
-                event.preventDefault();
-                document.getElementById(nextId).focus();
-            }
-        }
-
-        document.querySelectorAll(".team td[contenteditable='true']").forEach(cell => {
-            cell.addEventListener("input", updatePoints);
-        });
     </script>
+
 </body>
 </html>
