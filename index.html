@@ -13,6 +13,7 @@
 
         h1 {
             color: #333;
+            font-weight: bold;
         }
 
         .table-container {
@@ -27,6 +28,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            font-weight: bold; /* Font zyada bold kar diya */
         }
 
         th, td {
@@ -44,23 +46,32 @@
             height: 30px;
             border-radius: 50%;
             object-fit: cover;
-            margin-right: 10px;
+            margin-right: 3px; /* Team ke name se 3px door */
         }
+
+        /* Team-Specific Row Colors */
+        .csk { background-color: #FFF700; }
+        .mi { background-color: #0066CC; color: white; }
+        .srh { background-color: #FF6600; }
+        .gt { background-color: #000000; color: white; }
+        .rr { background-color: #FF1493; color: white; }
+        .rcb { background-color: #D50000; color: white; }
 
         td[contenteditable="true"] {
             background: #f9f9f9;
             cursor: pointer;
         }
 
-        /* Dragging Effect */
-        .dragging {
-            opacity: 0.5;
-            background-color: lightblue;
+        .upload-logo {
+            display: block;
+            margin: 10px auto;
         }
     </style>
 </head>
 <body>
-    <h1>TATA IPL 2025</h1>
+    <h1>Cricket Points Table</h1>
+    <input type="file" id="logoUpload" class="upload-logo" accept="image/*" onchange="uploadLogo()" />
+    
     <div class="table-container">
         <table>
             <thead>
@@ -74,23 +85,23 @@
                 </tr>
             </thead>
             <tbody id="teamList">
-                <tr class="team" draggable="true">
+                <tr class="team csk" draggable="true">
                     <td class="position">1</td>
-                    <td><img src="rcb.png" class="logo" alt="RCB"> RCB</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team" draggable="true">
-                    <td class="position">2</td>
                     <td><img src="csk.png" class="logo" alt="CSK"> CSK</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
-                <tr class="team" draggable="true">
+                <tr class="team mi" draggable="true">
+                    <td class="position">2</td>
+                    <td><img src="mi.png" class="logo" alt="MI"> MI</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team srh" draggable="true">
                     <td class="position">3</td>
                     <td><img src="srh.png" class="logo" alt="SRH"> SRH</td>
                     <td contenteditable="true">0</td>
@@ -98,25 +109,25 @@
                     <td contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
-                <tr class="team" draggable="true">
+                <tr class="team gt" draggable="true">
                     <td class="position">4</td>
-                    <td><img src="mi.png" class="logo" alt="MI"> MI</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team" draggable="true">
-                    <td class="position">5</td>
                     <td><img src="gt.png" class="logo" alt="GT"> GT</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
-                <tr class="team" draggable="true">
-                    <td class="position">6</td>
+                <tr class="team rr" draggable="true">
+                    <td class="position">5</td>
                     <td><img src="rr.png" class="logo" alt="RR"> RR</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team rcb" draggable="true">
+                    <td class="position">6</td>
+                    <td><img src="rcb.png" class="logo" alt="RCB"> RCB</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
                     <td contenteditable="true">0</td>
@@ -127,6 +138,21 @@
     </div>
 
     <script>
+        function uploadLogo() {
+            const input = document.getElementById("logoUpload");
+            const file = input.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.querySelectorAll(".logo").forEach(img => {
+                        img.src = e.target.result;
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
         const teamList = document.getElementById("teamList");
 
         document.querySelectorAll(".team").forEach(team => {
