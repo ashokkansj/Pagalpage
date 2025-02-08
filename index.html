@@ -11,10 +11,28 @@
             background-color: #f4f4f4;
         }
 
-        h1 {
-            color: white;
+        /* Scrolling Title */
+        .scrolling-title {
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+            font-size: 24px;
             font-weight: bold;
+            color: white;
             text-shadow: 2px 2px 4px black;
+            background: black;
+            padding: 10px;
+        }
+
+        .scrolling-title span {
+            display: inline-block;
+            position: absolute;
+            animation: scrollText 10s linear infinite;
+        }
+
+        @keyframes scrollText {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
         }
 
         .table-container {
@@ -23,7 +41,7 @@
             background: white;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
         }
 
         table {
@@ -49,6 +67,11 @@
             height: 40px;
             border-radius: 50%;
             object-fit: cover;
+            cursor: pointer;
+        }
+
+        .upload-input {
+            display: none;
         }
 
         /* Team Colors */
@@ -59,6 +82,11 @@
         .rr { background-color: #FF1493; }
         .rcb { background-color: #D50000; }
 
+        /* Embossed Effect */
+        tr {
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
         /* Matches, Wins, Losses Colors */
         .matches { background-color: #d3d3d3; color: black; }
         .wins { background-color: #4CAF50; }
@@ -67,16 +95,14 @@
         td[contenteditable="true"] {
             cursor: pointer;
         }
-
-        .upload-logo {
-            display: block;
-            margin: 10px auto;
-        }
     </style>
 </head>
 <body>
-    <h1>Cricket Points Table</h1>
-    
+
+    <div class="scrolling-title">
+        <span>🏏 Cricket Points Table 🏏 Cricket Points Table 🏏 Cricket Points Table 🏏</span>
+    </div>
+
     <div class="table-container">
         <table>
             <thead>
@@ -88,69 +114,22 @@
                     <th>Wins</th>
                     <th>Losses</th>
                     <th>Points</th>
-                    <th>Upload Logo</th>
                 </tr>
             </thead>
             <tbody id="teamList">
                 <tr class="team csk">
                     <td class="position">1</td>
-                    <td><img src="csk.png" class="logo" id="logo-csk"></td>
+                    <td>
+                        <label>
+                            <img src="csk.png" class="logo" id="logo-csk" onclick="document.getElementById('file-csk').click()">
+                            <input type="file" id="file-csk" class="upload-input" accept="image/*" onchange="uploadLogo(event, 'logo-csk')">
+                        </label>
+                    </td>
                     <td>CSK</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
+                    <td class="matches" contenteditable="true" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'wins-csk')">0</td>
+                    <td class="wins" contenteditable="true" id="wins-csk" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'losses-csk')">0</td>
+                    <td class="losses" contenteditable="true" id="losses-csk" oninput="validateInput(this, 2)">0</td>
                     <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-csk')"></td>
-                </tr>
-                <tr class="team mi">
-                    <td class="position">2</td>
-                    <td><img src="mi.png" class="logo" id="logo-mi"></td>
-                    <td>MI</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-mi')"></td>
-                </tr>
-                <tr class="team srh">
-                    <td class="position">3</td>
-                    <td><img src="srh.png" class="logo" id="logo-srh"></td>
-                    <td>SRH</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-srh')"></td>
-                </tr>
-                <tr class="team gt">
-                    <td class="position">4</td>
-                    <td><img src="gt.png" class="logo" id="logo-gt"></td>
-                    <td>GT</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-gt')"></td>
-                </tr>
-                <tr class="team rr">
-                    <td class="position">5</td>
-                    <td><img src="rr.png" class="logo" id="logo-rr"></td>
-                    <td>RR</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-rr')"></td>
-                </tr>
-                <tr class="team rcb">
-                    <td class="position">6</td>
-                    <td><img src="rcb.png" class="logo" id="logo-rcb"></td>
-                    <td>RCB</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                    <td><input type="file" accept="image/*" onchange="uploadLogo(event, 'logo-rcb')"></td>
                 </tr>
             </tbody>
         </table>
@@ -168,16 +147,45 @@
             }
         }
 
-        document.querySelectorAll(".team td[contenteditable='true']").forEach(cell => {
-            cell.addEventListener("input", updatePoints);
-        });
-
         function updatePoints() {
-            document.querySelectorAll(".team").forEach(team => {
+            let teams = [...document.querySelectorAll(".team")];
+
+            teams.forEach(team => {
                 const wins = parseInt(team.children[4].innerText) || 0;
                 team.children[6].innerText = wins * 2;
             });
+
+            teams.sort((a, b) => {
+                const pointsA = parseInt(a.children[6].innerText) || 0;
+                const pointsB = parseInt(b.children[6].innerText) || 0;
+                return pointsB - pointsA;
+            });
+
+            const tbody = document.getElementById("teamList");
+            tbody.innerHTML = "";
+            teams.forEach((team, index) => {
+                team.children[0].innerText = index + 1;
+                tbody.appendChild(team);
+            });
         }
+
+        function validateInput(element, maxLength) {
+            let text = element.innerText;
+            if (text.length > maxLength) {
+                element.innerText = text.slice(0, maxLength);
+            }
+        }
+
+        function moveCursor(event, currentElement, nextId) {
+            if (event.key === "Enter" || event.key === "Tab") {
+                event.preventDefault();
+                document.getElementById(nextId).focus();
+            }
+        }
+
+        document.querySelectorAll(".team td[contenteditable='true']").forEach(cell => {
+            cell.addEventListener("input", updatePoints);
+        });
     </script>
 </body>
 </html>
