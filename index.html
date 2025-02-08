@@ -119,16 +119,22 @@
             <tbody id="teamList">
                 <tr class="team csk">
                     <td class="position">1</td>
-                    <td>
-                        <label>
-                            <img src="csk.png" class="logo" id="logo-csk" onclick="document.getElementById('file-csk').click()">
-                            <input type="file" id="file-csk" class="upload-input" accept="image/*" onchange="uploadLogo(event, 'logo-csk')">
-                        </label>
-                    </td>
+                    <td><input type="file" class="upload-input" onchange="uploadLogo(event, 'logo-csk')">
+                        <img src="csk.png" class="logo" id="logo-csk"></td>
                     <td>CSK</td>
                     <td class="matches" contenteditable="true" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'wins-csk')">0</td>
                     <td class="wins" contenteditable="true" id="wins-csk" oninput="validateInput(this, 2)" onkeypress="moveCursor(event, this, 'losses-csk')">0</td>
                     <td class="losses" contenteditable="true" id="losses-csk" oninput="validateInput(this, 2)">0</td>
+                    <td class="points">0</td>
+                </tr>
+                <tr class="team mi">
+                    <td class="position">2</td>
+                    <td><input type="file" class="upload-input" onchange="uploadLogo(event, 'logo-mi')">
+                        <img src="mi.png" class="logo" id="logo-mi"></td>
+                    <td>MI</td>
+                    <td class="matches" contenteditable="true">0</td>
+                    <td class="wins" contenteditable="true">0</td>
+                    <td class="losses" contenteditable="true">0</td>
                     <td class="points">0</td>
                 </tr>
             </tbody>
