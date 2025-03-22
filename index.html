@@ -3,200 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cricket Points Table</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f4;
-        }
+    <title>Web A - Send Message</title>
+    <script type="module">
+        // Firebase Import
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        h1 {
-            color: #333;
-            font-weight: bold;
-            white-space: nowrap;
-            overflow: hidden;
-            display: inline-block;
-            animation: scrollText 5s linear infinite;
-        }
+        // Firebase Config (Aapka jo copy kiya)
+        const firebaseConfig = {
+            apiKey: "AIzaSyApKqjKqAl6B5-6jnon6-6UQalsUbe0DpU",
+            authDomain: "cricketworls-71374.firebaseapp.com",
+            databaseURL: "https://cricketworls-71374-default-rtdb.firebaseio.com",
+            projectId: "cricketworls-71374",
+            storageBucket: "cricketworls-71374.firebasestorage.app",
+            messagingSenderId: "1096965034896",
+            appId: "1:1096965034896:web:68d018714764ec9eda5915"
+        };
 
-        @keyframes scrollText {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
+        // Firebase Initialize
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-        .table-container {
-            width: 90%;
-            margin: auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 2px solid #ddd;
-            text-align: center;
-        }
-
-        th {
-            background-color: #f0f0f0;
-        }
-
-        .team-logo {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border- colour: #00000;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        td[contenteditable="true"] {
-            cursor: pointer;
-            width: 50px;
-        }
-
-        .hidden-input {
-            display: none;
-        }
-
-        /* Team Colors */
-        .csk { background-color: #FFF700; }
-        .mi { background-color: #0066CC; color: white; }
-        .srh { background-color: #FF6600; }
-        .gt { background-color: #000000; color: white; }
-        .rr { background-color: #FF1493; color: white; }
-        .rcb { background-color: #D50000; color: white; }
-    </style>
-</head>
-<body>
-
-    <h1>Cricket Points Table</h1>
-    
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Pos</th>
-                    <th>Logo</th>
-                    <th>Team</th>
-                    <th>Matches</th>
-                    <th>Wins</th>
-                    <th>Losses</th>
-                    <th>Points</th>
-                </tr>
-            </thead>
-            <tbody id="teamList">
-                <tr class="team csk">
-                    <td class="position">1</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="csk.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>CSK</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team mi">
-                    <td class="position">2</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="mi.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>MI</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team srh">
-                    <td class="position">3</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="srh.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>SRH</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team gt">
-                    <td class="position">4</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="gt.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>GT</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team rr">
-                    <td class="position">5</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="rr.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>RR</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-                <tr class="team rcb">
-                    <td class="position">6</td>
-                    <td><input type="file" class="hidden-input" onchange="uploadLogo(this)"><img src="rcb.png" class="team-logo" onclick="this.previousElementSibling.click()"></td>
-                    <td>RCB</td>
-                    <td class="matches" contenteditable="true">0</td>
-                    <td class="wins" contenteditable="true">0</td>
-                    <td class="losses" contenteditable="true">0</td>
-                    <td class="points">0</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <script>
-        function uploadLogo(input) {
-            const file = input.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    input.nextElementSibling.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        document.querySelectorAll(".matches, .wins, .losses").forEach(cell => {
-            cell.addEventListener("input", function() {
-                let text = this.innerText.replace(/\D/g, '');
-                if (text.length > 2) text = text.slice(0, 2);
-                this.innerText = text;
-
-                if (text.length === 2) {
-                    let next = this.parentElement.children[this.cellIndex + 1];
-                    if (next && next.contentEditable === "true") {
-                        next.focus();
-                    }
-                }
-                updatePoints();
-            });
-
-            cell.addEventListener("keydown", function(e) {
-                if (e.key === "Enter") {
-                    e.preventDefault();
-                    let next = this.parentElement.children[this.cellIndex + 1];
-                    if (next && next.contentEditable === "true") {
-                        next.focus();
-                    }
-                }
-            });
-        });
-
-        function updatePoints() {
-            document.querySelectorAll(".team").forEach(team => {
-                let wins = parseInt(team.children[4].innerText) || 0;
-                team.children[6].innerText = wins * 2;
-            });
+        function sendMessage() {
+            const message = document.getElementById("message").value;
+            set(ref(db, "chat/message"), { text: message });
+            document.getElementById("message").value = "";
         }
     </script>
-
+</head>
+<body>
+    <h2>Web A - Send Message</h2>
+    <input type="text" id="message" placeholder="Enter Message">
+    <button onclick="sendMessage()">Send</button>
 </body>
 </html>
